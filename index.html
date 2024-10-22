@@ -28,15 +28,30 @@
         .c3{background-color: #79e079;}
 
         #caja2, #caja3{
-            transform-origin: 0 0;
-            transform: scale(10) translateX(-100%) rotate(-90deg);
+            /* transform-origin: 0 0;
+            transform: scale(10) translateX(-100%) rotate(-90deg); */
+            filter: blur(3);
             transition: all 1s;
         }
 
         .efecto{
-            transform:scale(1) translateX(0%) rotate(0) !important;
-            
+            /* transform:scale(1) translateX(0%) rotate(0) !important; */
+            filter: blur(0px) !important;
+            opacity: 1;
         }
+        img{
+            transition: all 1s;
+            max-width: 20%;
+            filter: blur(10px);
+            opacity: 0;
+        }
+
+        /* 
+                    WEB TRANSICIONES
+                    ----------------
+        https://cubic-bezier.com/#.17,.67,.83,.67
+
+        */
     </style>
 </head>
 <body>
@@ -47,11 +62,12 @@
         <div id="caja2">caja2</div>
     </section>
     <section class="c3">
-        <div id="caja3">caja3</div>
+        <div id="caja3"><img src="bs_la-chiki.png" alt=""></div>
     </section>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            let img = document.querySelector("#caja3 > img")
             let caja1 = document.querySelector("#caja1");
             let caja2 = document.querySelector("#caja2");
             let caja3 = document.querySelector("#caja3");
@@ -70,6 +86,12 @@
                         //comentario
                     }
                 })
+                if (window.scrollY > caja3.offsetTop - window.innerHeight/2) {
+                    img.classList.add("efecto");
+                }else{
+                    img.classList.remove("efecto");
+                    //comentario
+                }
             })
         })
     </script>
