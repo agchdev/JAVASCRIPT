@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            font-family: system-ui;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        section{
+            min-height: 100vh;
+            /* border: 1px solid red; */
+            font-size: 5rem;
+            -webkit-text-stroke: 1px white;
+            color: black;
+        }
+        .c1{background-color: #e07979;}
+        .c2{background-color: #79d9e0;}
+        .c3{background-color: #79e079;}
+
+        #caja2, #caja3{
+            transform-origin: 0 0;
+            transform: scale(10) translateX(-100%) rotate(-90deg);
+            transition: all 1s;
+        }
+
+        .efecto{
+            transform:scale(1) translateX(0%) rotate(0) !important;
+            
+        }
+    </style>
+</head>
+<body>
+    <section class="c1">
+        <div id="caja1">caja1</div>
+    </section>
+    <section class="c2">
+        <div id="caja2">caja2</div>
+    </section>
+    <section class="c3">
+        <div id="caja3">caja3</div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            let caja1 = document.querySelector("#caja1");
+            let caja2 = document.querySelector("#caja2");
+            let caja3 = document.querySelector("#caja3");
+            window.addEventListener("scroll", () => {
+                // console.log(window.scrollY);
+                // console.log(caja1.offsetTop);
+                // console.log(caja2.offsetTop);
+                // console.log(caja3.offsetTop);
+                if (window.scrollY > caja2.offsetTop - window.innerHeight/2) {
+                    caja2.classList.add("efecto");
+                }else{
+                    caja2.classList.remove("efecto");
+                }
+            })
+        })
+    </script>
+</body>
+</html>
