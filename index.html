@@ -11,6 +11,7 @@
             box-sizing: border-box;
         }
         body{
+            overflow-x: hidden;
             font-family: system-ui;
             text-transform: uppercase;
             font-weight: bold;
@@ -63,9 +64,9 @@
                 let cajas = document.querySelectorAll("section > div");
                 cajas.forEach(caja => {
                     if (window.scrollY > caja.offsetTop - window.innerHeight/2) {
-                    caja2.classList.add("efecto");
+                        caja.classList.add("efecto");
                     }else{
-                        caja2.classList.remove("efecto");
+                        caja.classList.remove("efecto");
                     }
                 })
             })
