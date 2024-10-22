@@ -59,11 +59,15 @@
                 // console.log(caja1.offsetTop);
                 // console.log(caja2.offsetTop);
                 // console.log(caja3.offsetTop);
-                if (window.scrollY > caja2.offsetTop - window.innerHeight/2) {
+
+                let cajas = document.querySelectorAll("section > div");
+                cajas.forEach(caja => {
+                    if (window.scrollY > caja.offsetTop - window.innerHeight/2) {
                     caja2.classList.add("efecto");
-                }else{
-                    caja2.classList.remove("efecto");
-                }
+                    }else{
+                        caja2.classList.remove("efecto");
+                    }
+                })
             })
         })
     </script>
