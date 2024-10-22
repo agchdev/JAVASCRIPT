@@ -29,18 +29,30 @@
 <body>
     <!-- <h1 class="animate__animated animate__rubberBand" style="transform-origin: 0 0;">An animated element</h1> -->
      <section>
-        <div class="caja1"></div>
+        <div class="caja1 animate__animated"></div>
      </section>
      <section>
-        <div class="caja2"></div>
+        <div class="caja2 animate__animated"></div>
      </section>
      <section>
-        <div class="caja3"></div>
+        <div class="caja3 animate__animated"></div>
      </section>
 
      <script>
         document.addEventListener("DOMContentLoaded", () => {
             const cajas = document.querySelectorAll("section > div");
+            const mediaPantalla = window.innerHeight/2;
+
+            window.addEventListener("scroll", () => {
+                cajas.forEach(caja => {
+                    if(window.scrollY > caja.offsetTop - mediaPantalla){
+                        caja.classList.add("animate__heartBeat");
+                    }else{
+                        caja.classList.remove("animate__heartBeat");
+                    }
+                })
+            })
+            
         });
      </script>
 </body>
