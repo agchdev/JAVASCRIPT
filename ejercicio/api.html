@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Api</title>
+    <link rel="stylesheet" href="https://bootswatch.com/5/morph/bootstrap.min.css">
+</head>
+
+<body>
+
+    <!-- <div class="container">
+        <div class="row">-->
+
+            <!-- INICIO COL-MD-4 -->
+            <!-- <div class="col-md-4">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-header">
+                        <img src="https://robohash.org/hicveldicta.png" alt="">
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Primary card title</h4>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.
+                        </p>
+                    </div>
+                </div>
+            </div> -->
+            <!-- FIN COL-MD-4 -->
+
+    <!-- </div>
+    </div> -->
+
+
+    <script src="js/datos.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // DECLARAR VARIABLES 
+            let container = document.createElement("div");
+            let row = document.createElement("div");
+            let colmd4 = document.createElement("div");
+
+            // CREAR CONTAINER, ROW + AÑADIR SUS CLASES
+            container.setAttribute("class", "container");
+            row.setAttribute("class", "row"); 
+
+            // METER ROW DENTRO DE CONTAINER
+            container.append(row);
+
+            // RENDER DE DATOS
+            users.forEach(usuario => {
+                let divCol = document.createElement("div");
+                divCol.textContent(usuario.firstName);
+            });
+
+            // AL FINAL
+            document.body.append(container);
+
+        });
+    </script>
+</body>
+
+</html>
