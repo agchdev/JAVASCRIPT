@@ -52,7 +52,22 @@
             // RENDER DE DATOS
             users.forEach(usuario => {
                 let divCol = document.createElement("div");
-                divCol.textContent(usuario.firstName);
+                divCol.setAttribute("class", "col-md-4");
+                divCol.innerHTML = `
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-header">
+                        <img src="${usuario.image}" alt="">
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">${usuario.firstName}</h4>
+                        <p class="card-text">
+                            ${usuario.email}<br>${usuario.phone}
+                        </p>
+                    </div>
+                </div>
+                `;
+                row.append(divCol);
+
             });
 
             // AL FINAL
