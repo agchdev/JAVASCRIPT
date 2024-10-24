@@ -8,6 +8,27 @@
     <link rel="stylesheet" href="https://bootswatch.com/5/morph/bootstrap.min.css">
 </head>
 
+<style>
+    @keyframes animar {
+        0%{
+            opacity: 0;
+            scale: 0;
+        }
+        100%{
+            opacity: 100%;
+            scale: 100%;
+        }
+    }
+
+    .col-md-4{
+        view-timeline: --efecto block;
+        animation-timeline: --efecto;
+        animation-name: animar;
+        animation-range: entry 10% cover 50%;
+        animation-fill-mode: both;
+    }
+</style>
+
 <body>
 
     <!-- <div class="container">
@@ -56,7 +77,7 @@
                 divCol.innerHTML = `
                 <div class="card text-white bg-primary mb-3">
                     <div class="card-header">
-                        <img src="${usuario.image}" alt="">
+                        <img src="${usuario.image}" alt="" class="img-fluid">
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">${usuario.firstName}</h4>
@@ -88,7 +109,7 @@
                 nombresRobot.forEach(nombre => {
                     
                     let nodoMD = nombre.closest(".col-md-4");
-                    
+
                     if(!nombre.textContent.toLowerCase().includes(buscado)){
                         nodoMD.style.display = "none";
                     }else{
