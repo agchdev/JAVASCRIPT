@@ -38,12 +38,12 @@
         document.addEventListener("DOMContentLoaded", () => {
 
             // DECLARAR VARIABLES 
-            let container = document.createElement("div");
-            let row = document.createElement("div");
-            let colmd4 = document.createElement("div");
+            const container = document.createElement("div");
+            const row = document.createElement("div");
+            const colmd4 = document.createElement("div");
 
             // CREAR CONTAINER, ROW + AÑADIR SUS CLASES
-            container.setAttribute("class", "container");
+            container.setAttribute("class", "container text-center my-5");
             row.setAttribute("class", "row"); 
 
             // METER ROW DENTRO DE CONTAINER
@@ -70,8 +70,15 @@
 
             });
 
+            // AÑADIR BUSCADOR
+            let input = document.createElement("input");
+            input.setAttribute("class", "form-control my-2");
+            input.setAttribute("type", "search");
+            row.append(input);
+
             // AL FINAL
-            document.body.append(container);
+            document.body.append(input, container);
+
 
         });
     </script>
