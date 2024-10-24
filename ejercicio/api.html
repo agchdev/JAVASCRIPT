@@ -72,14 +72,31 @@
 
             // AÑADIR BUSCADOR
             let input = document.createElement("input");
-            input.setAttribute("class", "form-control my-2");
+            input.setAttribute("class", "form-control my-5 rounded-5");
             input.setAttribute("type", "search");
-            row.append(input);
+            input.setAttribute("placeholder", "Buscar Robot");
+            container.prepend(input);
 
             // AL FINAL
-            document.body.append(input, container);
+            document.body.append(container);
 
+            // BUSCADOR FUNCIONALIDAD
+            let nombresRobot = document.querySelectorAll(".card-title");    
 
+            input.addEventListener("input", (e) => {
+                let buscado = e.target.value.toLowerCase();
+                nombresRobot.forEach(nombre => {
+                    
+                    let nodoMD = nombre.closest(".col-md-4");
+                    
+                    if(!nombre.textContent.toLowerCase().includes(buscado)){
+                        nodoMD.style.display = "none";
+                    }else{
+                        nodoMD.style.display = "block";
+                    }
+                });
+            })
+            
         });
     </script>
 </body>
