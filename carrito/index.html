@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Api</title>
+    <title>Document</title>
     <link rel="stylesheet" href="https://bootswatch.com/5/morph/bootstrap.min.css">
-
     <style>
         @keyframes animar {
             0% {
@@ -36,12 +34,26 @@
             bottom: 10px;
             transition: opacity 1s;
         }
+
     </style>
 </head>
-
-
-
 <body>
+    <div class="container my-4 p-4 border">
+        <div class="row">
+            <div class="col-2">
+                LOGO
+            </div>
+
+            <div class="col-10 carrito text-end">
+                <button class="btn btn-outline-success">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                    </svg>
+                    <span class="badge bg-danger rounded-pill">0</span>
+                </button>
+            </div>
+        </div>
+    </div>  
     <div class="flecha">
         <a href="#" class="btn btn-primary">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
@@ -61,11 +73,26 @@
             </select>
         </div>
     </div>
-    <script src="js/datos.js"></script>
+    <!-- <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">
+                        <img src="https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/1.png" alt="" class="img-fluid">
+                    </div>
+                    <div class="card-body">
+                      <h4 class="card-title">Titulo producto</h4>
+                      <p class="card-text">20.00€</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <script src="api.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
 
-            // DECLARAR VARIABLES 
+            // DECLARAR CONSTANTES  
             const container = document.createElement("div");
             const row = document.createElement("div");
             const colmd4 = document.createElement("div");
@@ -76,26 +103,26 @@
 
             // METER ROW DENTRO DE CONTAINER
             container.append(row);
-
+            
             // RENDER DE DATOS
-            users.forEach(usuario => {
+            productos.forEach(product => {
                 let divCol = document.createElement("div");
                 divCol.setAttribute("class", "col-md-4");
                 divCol.innerHTML = `
                 <div class="card text-white bg-primary mb-3">
                     <div class="card-header">
-                        <img src="${usuario.image}" alt="" class="img-fluid">
+                        <img src="${product.images}" alt="" class="img-fluid">
                     </div>
                     <div class="card-body">
-                        <h4 class="card-title">${usuario.firstName}</h4>
+                        <h4 class="card-title">${product.title}</h4>
                         <p class="card-text">
-                            ${usuario.email}<br>${usuario.phone}
+                            ${product.price}€
                         </p>
+                        <a href="#" type="button" class="btn btn-outline-secondary">Añadir al carrito</a>
                     </div>
                 </div>
                 `;
                 row.append(divCol);
-
             });
 
             // AÑADIR BUSCADOR
@@ -109,11 +136,11 @@
             document.body.append(container);
 
             // BUSCADOR FUNCIONALIDAD
-            let nombresRobot = document.querySelectorAll(".card-title");
+            let nombresPro = document.querySelectorAll(".card-title");
 
             input.addEventListener("input", (e) => {
                 let buscado = e.target.value.toLowerCase();
-                nombresRobot.forEach(nombre => {
+                nombresPro.forEach(nombre => {
 
                     let nodoMD = nombre.closest(".col-md-4");
 
@@ -149,5 +176,4 @@
         });
     </script>
 </body>
-
 </html>
