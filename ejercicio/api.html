@@ -10,17 +10,18 @@
 
 <style>
     @keyframes animar {
-        0%{
+        0% {
             opacity: 0;
             scale: 0;
         }
-        100%{
+
+        100% {
             opacity: 100%;
             scale: 100%;
         }
     }
 
-    .col-md-4{
+    .col-md-4 {
         view-timeline: --efecto block;
         animation-timeline: --efecto;
         animation-name: animar;
@@ -30,8 +31,16 @@
 </style>
 
 <body>
+    <div class="flecha">
+        <button class="btn btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+            </svg>
+        </button>
+    </div>
+
     <div class="container my-5">
-        <div class="row offset-md-3 col-md-6"> 
+        <div class="row offset-md-3 col-md-6">
             <select class="form-select">
                 <option value="morph">Seleccionar un tema</option>
                 <option value="cosmo">cosmo</option>
@@ -52,7 +61,7 @@
 
             // CREAR CONTAINER, ROW + AÑADIR SUS CLASES
             container.setAttribute("class", "container text-center my-5");
-            row.setAttribute("class", "row"); 
+            row.setAttribute("class", "row");
 
             // METER ROW DENTRO DE CONTAINER
             container.append(row);
@@ -89,28 +98,28 @@
             document.body.append(container);
 
             // BUSCADOR FUNCIONALIDAD
-            let nombresRobot = document.querySelectorAll(".card-title");    
+            let nombresRobot = document.querySelectorAll(".card-title");
 
             input.addEventListener("input", (e) => {
                 let buscado = e.target.value.toLowerCase();
                 nombresRobot.forEach(nombre => {
-                    
+
                     let nodoMD = nombre.closest(".col-md-4");
 
-                    if(!nombre.textContent.toLowerCase().includes(buscado)){
+                    if (!nombre.textContent.toLowerCase().includes(buscado)) {
                         nodoMD.style.display = "none";
-                    }else{
+                    } else {
                         nodoMD.style.display = "block";
                     }
                 });
             })
-           
+
             // CAMBIAR TEMA
             const selectTema = document.querySelector("select");
             selectTema.addEventListener("change", (e) => {
                 // console.log(e.target.value);
-                document.querySelector("link").href=`https://bootswatch.com/5/${e.target.value}/bootstrap.min.css`;
-                
+                document.querySelector("link").href = `https://bootswatch.com/5/${e.target.value}/bootstrap.min.css`;
+
             });
         });
     </script>
