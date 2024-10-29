@@ -28,15 +28,22 @@
         animation-range: entry 10% cover 50%;
         animation-fill-mode: both;
     }
+
+    div.flecha a{
+        position: fixed;
+        right: 10px;
+        bottom: 10px;
+        transition: opacity 1s;
+    }
 </style>
 
 <body>
     <div class="flecha">
-        <button class="btn btn-primary">
+        <a href="#" class="btn btn-primary">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                 <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
             </svg>
-        </button>
+        </a>
     </div>
 
     <div class="container my-5">
@@ -121,6 +128,21 @@
                 document.querySelector("link").href = `https://bootswatch.com/5/${e.target.value}/bootstrap.min.css`;
 
             });
+
+            // FUNCIONALIDAD DE LA FLECHA
+            const btnFlecha = document.querySelector("div.flecha a");
+            const mediaAltura = window.innerHeight/2;
+            console.log(window.innerHeight);
+
+            window.addEventListener("scroll", () => {
+                console.log(window.scrollY)
+                if(window.scrollY > mediaAltura ){
+                    btnFlecha.style.opacity = "1";
+                } else {
+                    btnFlecha.style.opacity = "0";
+                }
+            })
+            btnFlecha
         });
     </script>
 </body>
