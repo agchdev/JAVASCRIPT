@@ -30,30 +30,17 @@
 </style>
 
 <body>
-
-    <!-- <div class="container">
-        <div class="row">-->
-
-            <!-- INICIO COL-MD-4 -->
-            <!-- <div class="col-md-4">
-                <div class="card text-white bg-primary mb-3">
-                    <div class="card-header">
-                        <img src="https://robohash.org/hicveldicta.png" alt="">
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title">Primary card title</h4>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.
-                        </p>
-                    </div>
-                </div>
-            </div> -->
-            <!-- FIN COL-MD-4 -->
-
-    <!-- </div>
-    </div> -->
-
-
+    <div class="container my-5">
+        <div class="row offset-md-3 col-md-6"> 
+            <select class="form-select">
+                <option value="morph">Seleccionar un tema</option>
+                <option value="cosmo">cosmo</option>
+                <option value="lux">lux</option>
+                <option value="lumen">lumen</option>
+                <option value="cyborg">cyborg</option>
+            </select>
+        </div>
+    </div>
     <script src="js/datos.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -117,7 +104,14 @@
                     }
                 });
             })
-            
+           
+            // CAMBIAR TEMA
+            const selectTema = document.querySelector("select");
+            selectTema.addEventListener("change", (e) => {
+                // console.log(e.target.value);
+                document.querySelector("link").href=`https://bootswatch.com/5/${e.target.value}/bootstrap.min.css`;
+                
+            });
         });
     </script>
 </body>
