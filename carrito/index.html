@@ -164,10 +164,8 @@
             // FUNCIONALIDAD DE LA FLECHA
             const btnFlecha = document.querySelector("div.flecha a");
             const mediaAltura = window.innerHeight/2;
-            console.log(window.innerHeight);
 
             window.addEventListener("scroll", () => {
-                console.log(window.scrollY)
                 if(window.scrollY > mediaAltura ){
                     btnFlecha.style.opacity = "1";
                 } else {
@@ -176,9 +174,19 @@
             })
         });
 
+        // FUNCION PARA AÑADIR PRODUCTO AL CARRITO
         function carritoAdd(elemento, idProducto){
-            alert(elemento, idProducto);
+            // Almacenar el padre del boton donde se ha hecho el click
+            const padre = elemento.parentElement;
+            let productoActual = {
+                id: idProducto,
+                title: padre.querySelector("h4.card-title").textContent,
+                price: padre.querySelector("p.card-text").textContent,
+                img: padre.querySelector("img").src,
+            }
+
         }
+
     </script>
 </body>
 </html>
