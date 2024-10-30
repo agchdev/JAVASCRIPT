@@ -90,13 +90,15 @@
     </div> -->
     <script src="api.js"></script>
     <script>
+        
+        let carrito = [];
+
         document.addEventListener("DOMContentLoaded", () => {
 
             // DECLARAR CONSTANTES  
             const container = document.createElement("div");
             const row = document.createElement("div");
             const colmd4 = document.createElement("div");
-            let carrito = [];
 
             // CREAR CONTAINER, ROW + AÑADIR SUS CLASES
             container.setAttribute("class", "container text-center my-5");
@@ -186,8 +188,26 @@
                 cantidad: 1
             }
 
+            // SI NO EXISTE EL PRODUCTO EN EL CARRITO INSERTO EL PRODUCTO
+            // SI NO SUMO LA CANTIDAD DEL PRODUCTO
+
+            // carrito = { id:1, cantidad:1} 
+            let existe = carrito.some( producto => producto.id == idProducto );
+
+            if (!existe) {
+                carrito.push(productoActual);
+            } else {
+                carrito.map(producto => {
+                    if (producto.id = idProducto) {
+                        producto.cantidad++;
+                    }
+                });
+            }
+
+            console.log(carrito);
         }
 
+        
     </script>
 </body>
 </html>
