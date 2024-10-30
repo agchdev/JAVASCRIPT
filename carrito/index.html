@@ -96,6 +96,7 @@
             const container = document.createElement("div");
             const row = document.createElement("div");
             const colmd4 = document.createElement("div");
+            let carrito = [];
 
             // CREAR CONTAINER, ROW + AÑADIR SUS CLASES
             container.setAttribute("class", "container text-center my-5");
@@ -111,14 +112,14 @@
                 divCol.innerHTML = `
                 <div class="card text-white bg-primary mb-3">
                     <div class="card-header">
-                        <img src="${product.images}" alt="" class="img-fluid">
+                        <img src="${product.thumbnail}" alt="" class="img-fluid">
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">${product.title}</h4>
                         <p class="card-text">
                             ${product.price}€
                         </p>
-                        <a href="#" type="button" class="btn btn-outline-secondary">Añadir al carrito</a>
+                        <button class="btn btn-outline-secondary" onClick="carritoAdd(this,${product.id})">Añadir al carrito</button>
                     </div>
                 </div>
                 `;
@@ -174,6 +175,10 @@
                 }
             })
         });
+
+        function carritoAdd(elemento, idProducto){
+            alert(elemento, idProducto);
+        }
     </script>
 </body>
 </html>
