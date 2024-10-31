@@ -47,7 +47,7 @@
             </div>
 
             <div class="col-10 carrito text-end">
-                <button class="btn btn-outline-success">
+                <button id="botonCarrito" class="btn btn-outline-success">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
                         <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
                     </svg>
@@ -56,54 +56,49 @@
             </div>
         </div>
 
-        <div class="row">
+        <div id="carrito" style="display: none;" class="row">
             <div class="ms-auto col-6 text-center border-bottom py-4">
-                
                 <table class="table table-hover">
-                  <tbody>
+                    <tbody>
                     <tr class="table-active">
-                      <td>img</td>
-                      <td>producto 1</td>
-                      <td>2$</td>
-                      <td>-</td>
-                      <td>1</td>
-                      <td>+</td>
+                        <td>img</td>
+                        <td>producto 1</td>
+                        <td>2$</td>
+                        <td>-</td>
+                        <td>1</td>
+                        <td>+</td>
                     </tr>
                     
                     <tr class="table-active">
-                      <td>img</td>
-                      <td>producto 1</td>
-                      <td>2$</td>
-                      <td>-</td>
-                      <td>1</td>
-                      <td>+</td>
+                        <td>img</td>
+                        <td>producto 1</td>
+                        <td>2$</td>
+                        <td>-</td>
+                        <td>1</td>
+                        <td>+</td>
                     </tr>
-                  </tbody>
+                    </tbody>
                 </table>
             </div>
-        <div class="row">
-            <div class="ms-auto col-6 text-center border-bottom">
-                
-            </div>
+        </div>  
+        <div class="flecha">
+            <a href="#" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                    <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                </svg>
+            </a>
         </div>
-    </div>  
-    <div class="flecha">
-        <a href="#" class="btn btn-primary">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
-                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
-            </svg>
-        </a>
-    </div>
 
-    <div class="container my-5">
-        <div class="row offset-md-3 col-md-6">
-            <select class="form-select">
-                <option value="morph">Seleccionar un tema</option>
-                <option value="cosmo">cosmo</option>
-                <option value="lux">lux</option>
-                <option value="lumen">lumen</option>
-                <option value="cyborg">cyborg</option>
-            </select>
+        <div class="container my-5">
+            <div class="row offset-md-3 col-md-6">
+                <select class="form-select">
+                    <option value="morph">Seleccionar un tema</option>
+                    <option value="cosmo">cosmo</option>
+                    <option value="lux">lux</option>
+                    <option value="lumen">lumen</option>
+                    <option value="cyborg">cyborg</option>
+                </select>
+            </div>
         </div>
     </div>
     <!-- <div class="container">
@@ -126,6 +121,7 @@
         
         let carrito = [];
         let cantCarrito = 1;
+        let abierto = false;
         const numCarrito = document.querySelector("#numeroCarrito");
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -134,6 +130,9 @@
             const container = document.createElement("div");
             const row = document.createElement("div");
             const colmd4 = document.createElement("div");
+            const carritoMenu = document.querySelector("#carrito");
+            const botonCarrito = document.querySelector("#botonCarrito");
+            const tbody = document.querySelector("#carrito > div > table > tbody");
 
             // CREAR CONTAINER, ROW + AÑADIR SUS CLASES
             container.setAttribute("class", "container text-center my-5");
@@ -209,6 +208,17 @@
                     btnFlecha.style.opacity = "0";
                 }
             })
+
+            botonCarrito.addEventListener("click", () => {
+                if(!abierto){
+                    carritoMenu.style.display="block";
+                    abierto = true;
+                }else{
+                    carritoMenu.style.display="none";
+                    abierto = false;
+                }
+                
+            })
         });
 
         // FUNCION PARA AÑADIR PRODUCTO AL CARRITO
@@ -231,7 +241,6 @@
 
             if (!existe) {
                 carrito.push(productoActual);
-
             } else {
                 carrito.map(producto => {
                     if (producto.id == idProducto) {
@@ -244,7 +253,7 @@
             console.log(carrito);
         }
 
-        
+
         
     </script>
 </body>
