@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Api</title>
+    <link rel="stylesheet" href="https://bootswatch.com/5/darkly/bootstrap.min.css">
+</head>
+
+
+<style>
+    /* body{
+        scroll-behavior: smooth; ANIMACION
+    } */
+    @keyframes animar {
+        0%{
+            opacity: 0;
+            scale: 0;
+        }
+        100%{
+            opacity: 100%;
+            scale: 100%;
+        }
+    }
+
+    .col-md-4{
+        view-timeline: --efecto block;
+        animation-timeline: --efecto;
+        animation-name: animar;
+        animation-range: entry 10% cover 50%;
+        animation-fill-mode: both;
+    }
+    div.flecha a{
+        position: fixed;
+        right: 10px;
+        bottom: 10px;
+        opacity: 0;
+        transition: opacity 1s;
+    }
+</style>
+
+<body>
+
+    <div class="container my-4 p-4 border ">
+        <div class="row">
+            <div class="col-2">
+                LOGO
+            </div>
+            <div class="col-10 carrito text-end">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                        </svg>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ms-auto col-6 text-center border-bottom py-4">
+                
+                <table class="table table-hover">
+                  <tbody>
+                    <tr class="table-active">
+                      <td>img</td>
+                      <td>producto 1</td>
+                      <td>2$</td>
+                      <td>-</td>
+                      <td>1</td>
+                      <td>+</td>
+                    </tr>
+                    
+                    <tr class="table-active">
+                      <td>img</td>
+                      <td>producto 1</td>
+                      <td>2$</td>
+                      <td>-</td>
+                      <td>1</td>
+                      <td>+</td>
+                    </tr>
+                  </tbody>
+                </table>
+                
+                
+            </div>
+
+        </div>
+    </div>
+    <script src="api.js"></script>
+    <script>
+        // DECLARAR CONSTANTES Y VARIABLES 
+        const container = document.createElement("div");
+            const row = document.createElement("div");
+            const colmd4 = document.createElement("div");
+            let carrito = [];
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // CREAR CONTAINER, ROW + AÑADIR SUS CLASES
+            container.setAttribute("class", "container text-center my-5");
+            row.setAttribute("class", "row"); 
+
+            // METER ROW DENTRO DE CONTAINER
+            container.append(row);
+
+            // RENDER DE DATOS
+            productos.forEach(producto => {
+                let divCol = document.createElement("div");
+                divCol.setAttribute("class", "col-md-4");
+                divCol.innerHTML = `
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-header">
+                        <img src="${producto.thumbnail}" alt="" class="img-fluid">
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">${producto.title}</h4>
+                        <p class="card-text">
+                            ${producto.price}?
+                        </p>
+                    </div>
+                    <button class="btn btn-outline onClick--secondary" onClick="carritoAdd(this,${producto.id})">Añadir al carrito</button>
+
+                </div>
+                `;
+                row.append(divCol);
+
+            });
+
+            // AÑADIR BUSCADOR
+            let input = document.createElement("input");
+            input.setAttribute("class", "form-control my-5 rounded-5");
+            input.setAttribute("type", "search");
+            input.setAttribute("placeholder", "Buscar producto");
+            container.prepend(input);
+
+            // AL FINAL
+            document.body.append(container);
+
+            // BUSCADOR FUNCIONALIDAD
+            let nombresRobot = document.querySelectorAll(".card-title");    
+
+            input.addEventListener("input", (e) => {
+                let buscado = e.target.value.toLowerCase();
+                nombresRobot.forEach(nombre => {
+                    
+                    let nodoMD = nombre.closest(".col-md-4");
+
+                    if(!nombre.textContent.toLowerCase().includes(buscado)){
+                        nodoMD.style.display = "none";
+                    }else{
+                        nodoMD.style.display = "block";
+                    }
+                });
+            });
+            
+            
+            
+            
+        });
+
+        function carritoAdd(elemento,idProducto){
+            // ALMACENAR EL PADRE DEL BOTON DONDE SE HACE CLICK
+            const padre = elemento.parentElement;
+            // console.log(elemento.parentElement.querySelector('h4').textContent);  Con esto podemos buscar lo que queramos dentro del DOM
+            let productoActual={
+                id:idProducto,
+                title: padre.querySelector("h4.card-title").textContent,
+                price: padre.querySelector("p.card-text").textContent,
+                img: padre.querySelector("img").src,
+                cantidad: 1
+
+            }
+
+            // SI NO XISTE EL PRODUCTO EN EL CARRITO INSERTO PRODUCTO, SINO SUMO LA CANTIDAD DEL PRODUCTO
+            let existe = carrito.some(producto => producto.id == idProducto);
+            
+            if(!existe){
+                carrito.push(productoActual);
+
+            }else{
+                carrito.map(producto => {
+                    if(producto.id == idProducto){
+                        producto.cantidad++;
+                    }
+                });
+            }
+            console.log(carrito);
+        }
+    </script>
+    </body>
+</html>
