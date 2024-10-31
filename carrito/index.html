@@ -60,7 +60,7 @@
             <div class="ms-auto col-6 text-center border-bottom py-4">
                 <table class="table table-hover">
                     <tbody>
-                    <!-- <tr class="table-active">
+                    <tr class="table-active">
                         <td>img</td>
                         <td>producto 1</td>
                         <td>2$</td>
@@ -68,7 +68,7 @@
                         <td>1</td>
                         <td>+</td>
                         <td>x</td>
-                    </tr> -->
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -254,19 +254,29 @@
                 precio = parseFloat(precio);
                 console.log(precio);
                 let precioTotalProducto = precio*el.cantidad;
+
+                let tdProd = document.querySelector("td");
+
+                tdProd.forEach(ele => {
+                    if(ele != el.id){
+                        trProducto.innerHTML = `
+                            <td>
+                                <img src="${el.thumbnail}">
+                            </td>
+                            <td>${el.title}</td>
+                            <td>${precioTotalProducto}$</td> 
+                            <td>-</td>
+                            <td>${el.cantidad}</td>
+                            <td>+</td>
+                            <td>x</td>
+                        `;
+
+                        tbody.append(trProducto);
+                    }
+                })
                 
-                trProducto.innerHTML = `
-                    <td>
-                        <img src="${el.thumbnail}">
-                    </td>
-                    <td>${el.title}</td>
-                    <td>${precioTotalProducto}$</td> 
-                    <td>-</td>
-                    <td>${el.cantidad}</td>
-                    <td>+</td>
-                    <td>x</td>
-                `;
-                tbody.append(trProducto);
+                
+                
             })
             
         }
