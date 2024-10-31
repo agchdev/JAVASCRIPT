@@ -60,23 +60,15 @@
             <div class="ms-auto col-6 text-center border-bottom py-4">
                 <table class="table table-hover">
                     <tbody>
-                    <tr class="table-active">
+                    <!-- <tr class="table-active">
                         <td>img</td>
                         <td>producto 1</td>
                         <td>2$</td>
                         <td>-</td>
                         <td>1</td>
                         <td>+</td>
-                    </tr>
-                    
-                    <tr class="table-active">
-                        <td>img</td>
-                        <td>producto 1</td>
-                        <td>2$</td>
-                        <td>-</td>
-                        <td>1</td>
-                        <td>+</td>
-                    </tr>
+                        <td>x</td>
+                    </tr> -->
                     </tbody>
                 </table>
             </div>
@@ -123,6 +115,7 @@
         let cantCarrito = 1;
         let abierto = false;
         const numCarrito = document.querySelector("#numeroCarrito");
+        const tbody = document.querySelector("#carrito > div > table > tbody");
 
         document.addEventListener("DOMContentLoaded", () => {
 
@@ -132,7 +125,6 @@
             const colmd4 = document.createElement("div");
             const carritoMenu = document.querySelector("#carrito");
             const botonCarrito = document.querySelector("#botonCarrito");
-            const tbody = document.querySelector("#carrito > div > table > tbody");
 
             // CREAR CONTAINER, ROW + AÑADIR SUS CLASES
             container.setAttribute("class", "container text-center my-5");
@@ -247,10 +239,36 @@
                         producto.cantidad++;
                     }
                 });
-            }+
-            console.log(numCarrito.textContent);
+            }
             numCarrito.textContent = `${cantCarrito++}`;
             console.log(carrito);
+
+            let trProducto = document.createElement("tr");
+            trProducto.setAttribute("class", "table-active");
+
+            carrito.forEach( el => {
+                // SACAMOS EL PRECIO
+                let precio = el.price;
+                precio =precio.trim().split("€");
+                precio = precio[0];
+                precio = parseFloat(precio);
+                console.log(precio);
+                let precioTotalProducto = precio*el.cantidad;
+                
+                trProducto.innerHTML = `
+                    <td>
+                        <img src="${el.thumbnail}">
+                    </td>
+                    <td>${el.title}</td>
+                    <td>${precioTotalProducto}$</td>
+                    <td>-</td>
+                    <td>${el.cantidad}</td>
+                    <td>+</td>
+                    <td>x</td>
+                `;
+                tbody.append(trProducto);
+            })
+            
         }
 
 
