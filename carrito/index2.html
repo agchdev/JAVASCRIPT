@@ -167,15 +167,27 @@
                 price: padre.querySelector("p.card-text").textContent,
                 img: padre.querySelector("img").src,
                 cantidad: 1
-
             }
+
+            const tbody = document.querySelector("tbody");
+            let carrProd = document.createElement("div");
+
+            carrProd.innerHTML = `
+            <tr class="table-active">
+                <td>${productoActual.id}</td>
+                <td>${productoActual.title}</td>
+                <td>${productoActual.price}$</td>
+                <td>-</td>
+                <td>${productoActual.cantidad}</td>
+                <td>+</td>
+            </tr>
+            `;
 
             // SI NO XISTE EL PRODUCTO EN EL CARRITO INSERTO PRODUCTO, SINO SUMO LA CANTIDAD DEL PRODUCTO
             let existe = carrito.some(producto => producto.id == idProducto);
             
             if(!existe){
-                carrito.push(productoActual);
-
+                tbody.append(carrProd);
             }else{
                 carrito.map(producto => {
                     if(producto.id == idProducto){

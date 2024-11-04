@@ -225,11 +225,17 @@
                 cantidad: 1
             }
 
+            console.log(productoActual.img);
             // SI NO EXISTE EL PRODUCTO EN EL CARRITO INSERTO EL PRODUCTO
             // SI NO SUMO LA CANTIDAD DEL PRODUCTO
 
             // carrito = { id:1, cantidad:1} 
             let existe = carrito.some( producto => producto.id == idProducto );
+
+            numCarrito.textContent = `${cantCarrito++}`;
+
+            let trProducto = document.createElement("tr");
+            trProducto.setAttribute("class", "table-active");
 
             if (!existe) {
                 carrito.push(productoActual);
@@ -240,11 +246,6 @@
                     }
                 });
             }
-            numCarrito.textContent = `${cantCarrito++}`;
-            console.log(carrito);
-
-            let trProducto = document.createElement("tr");
-            trProducto.setAttribute("class", "table-active");
 
             carrito.forEach( el => {
                 // SACAMOS EL PRECIO
@@ -255,26 +256,20 @@
                 console.log(precio);
                 let precioTotalProducto = precio*el.cantidad;
 
-                let tdProd = document.querySelector("td");
 
-                tdProd.forEach(ele => {
-                    if(ele != el.id){
-                        trProducto.innerHTML = `
-                            <td>
-                                <img src="${el.thumbnail}">
-                            </td>
-                            <td>${el.title}</td>
-                            <td>${precioTotalProducto}$</td> 
-                            <td>-</td>
-                            <td>${el.cantidad}</td>
-                            <td>+</td>
-                            <td>x</td>
-                        `;
+                trProducto.innerHTML = `
+                    <td>
+                        <img src="${el.img}" width="100">
+                    </td>
+                    <td>${el.title}</td>
+                    <td>${precioTotalProducto}$</td> 
+                    <td>-</td>
+                    <td>${el.cantidad}</td>
+                    <td>+</td>
+                    <td>x</td>
+                `;
 
-                        tbody.append(trProducto);
-                    }
-                })
-                
+                tbody.append(trProducto);
                 
                 
             })
