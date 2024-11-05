@@ -66,7 +66,7 @@
     <div class="tareas">
         <input type="text" placeholder="añadir tarea">
         <button class="agregar">Agregar Tarea</button>
-        <ul>
+        <!-- <ul>
             <li>
                 <div class="tarea">
                     <button>v</button>
@@ -75,7 +75,7 @@
                 </div>
             </li>
             <li>Tarea 2</li>
-        </ul>
+        </ul> -->
     </div>
 
     
@@ -96,12 +96,19 @@
 
         }
 
-        function mostrarTarea(tareas){
-            tareas.forEach(task => {
-                const li = document.createElement("li");
+        function mostrarTarea(){
+            const tareilla = JSON.parse(localStorage.getItem("datos"));
+            tareilla.forEach(task => {
+                const li = document.createElement("li"); 
                 li.innerHTML = `
-
+                    <div class="tarea">
+                        <button>v</button>
+                        <p>${task.tarea}</p>
+                        <button>X</button>
+                    </div>
                 `;
+
+                boton.parentElement.append(li)
             });
         }
 
@@ -110,7 +117,9 @@
             boton.addEventListener("click", () => {
                 if(tareaInput.value.trim() != ""){
                     let tarea = { id: cont, tarea: tareaInput.value.trim()}
+                    // cont = localStorage.getItem("contador");
                     cont++;
+                    localStorage.setItem("contador", cont);
                     task.push(tarea);
                     localStorage.setItem("datos", JSON.stringify(task));
                     mostrarTarea();
