@@ -18,7 +18,7 @@
             --moradoClaro: rgb(188, 149, 255);
         } 
 
-        div{
+        .tareas{
             width: 60%;
             display: flex;
             padding: 50px;
@@ -38,7 +38,7 @@
             outline: none;
         }
 
-        button{
+        .agregar{
             border: none;
             background-color: var(--morado);
             padding: 20px 30px;
@@ -57,16 +57,25 @@
             padding: 20px 0;
             border-bottom: solid 1px var(--morado);
         }
+        .tarea{
+            display: flex;
+        }
     </style>
 </head>
 <body>
     <div class="tareas">
         <input type="text" placeholder="añadir tarea">
-        <button>Agregar Tarea</button>
-        <!-- <ul>
-            <li>Tarea 1</li>
+        <button class="agregar">Agregar Tarea</button>
+        <ul>
+            <li>
+                <div class="tarea">
+                    <button>v</button>
+                    <p>Tarea 1</p>
+                    <button>X</button>
+                </div>
+            </li>
             <li>Tarea 2</li>
-        </ul> -->
+        </ul>
     </div>
 
     
@@ -76,19 +85,41 @@
         const tareaInput = document.querySelector('input');
         const boton = document.querySelector('button');
         const ul = document.createElement('ul');
+        let cont = 1;
+        const task = [
+            {id: 1, tarea: "Tarea 1"},
+            {id: 2, tarea: "Tarea 2"},
+            {id: 3, tarea: "Tarea 3"}
+        ];
+
+        function almacenarTarea(tareas){
+
+        }
+
+        function mostrarTarea(tareas){
+            tareas.forEach(task => {
+                const li = document.createElement("li");
+                li.innerHTML = `
+
+                `;
+            });
+        }
 
         document.addEventListener("DOMContentLoaded", () => {
         
             boton.addEventListener("click", () => {
-                let tarea = tareaInput.value != "" ? tareaInput.value : null ;
+                if(tareaInput.value.trim() != ""){
+                    let tarea = { id: cont, tarea: tareaInput.value.trim()}
+                    cont++;
+                    task.push(tarea);
+                    localStorage.setItem("datos", JSON.stringify(task));
+                    mostrarTarea();
+                }
 
-                console.log(tarea);
             })
         
         })
-        ul.innerHTML = `
-            <li>tarea 1</li>
-        `;
+        
 
         boton.parentElement.append(ul)
     </script>
