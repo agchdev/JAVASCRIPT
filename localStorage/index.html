@@ -59,6 +59,23 @@
         }
         .tarea{
             display: flex;
+            justify-content: space-between;
+        }
+        .x{
+            
+            background-color: red;
+            border: none;
+            padding: .5rem 1rem;
+            color: white;
+            cursor: pointer;
+        }
+        .v{
+            
+            background-color: green;
+            border: none;
+            padding: .5rem 1rem;
+            color: white;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -84,48 +101,74 @@
         // CONSTANTES Y VARIABLES
         const tareaInput = document.querySelector('input');
         const boton = document.querySelector('button');
+        let borrar = document.querySelectorAll('.x');
+        
+        
+
         const ul = document.createElement('ul');
-        let cont = 1;
-        const task = [
-            {id: 1, tarea: "Tarea 1"},
-            {id: 2, tarea: "Tarea 2"},
-            {id: 3, tarea: "Tarea 3"}
-        ];
+        let cont = 0;
+        if (localStorage.getItem("contador") != null) {
+            cont = localStorage.getItem("contador");
+        }
+        let task = [];
+        if (localStorage.getItem("datos") != null) {
+            task = JSON.parse(localStorage.getItem("datos"));
+        }
 
         function almacenarTarea(tareas){
 
         }
 
+        // MUESTRA LA TAREA LA PRÓXIMA VEZ QUE ENTRA A LA WEB
         function mostrarTarea(){
             const tareilla = JSON.parse(localStorage.getItem("datos"));
-            tareilla.forEach(task => {
-                const li = document.createElement("li"); 
-                li.innerHTML = `
-                    <div class="tarea">
-                        <button>v</button>
-                        <p>${task.tarea}</p>
-                        <button>X</button>
-                    </div>
-                `;
+            if(tareilla != null){
+                tareilla.forEach(task => {
+                    const li = document.createElement("li"); 
+                    li.innerHTML = `
+                        <div class="tarea">
+                            <button class="v">v</button>
+                            <p>${task.tarea}</p>
+                            <button class="x">X</button>
+                        </div>
+                    `;
 
-                boton.parentElement.append(li)
-            });
+                    ul.append(li);
+                });
+            }   
+            borrar = document.querySelectorAll('.x'); // SELECIONO LOS BOTONES DE BORRAR
         }
 
         document.addEventListener("DOMContentLoaded", () => {
+            mostrarTarea();
         
             boton.addEventListener("click", () => {
+                
                 if(tareaInput.value.trim() != ""){
                     let tarea = { id: cont, tarea: tareaInput.value.trim()}
                     // cont = localStorage.getItem("contador");
-                    cont++;
-                    localStorage.setItem("contador", cont);
-                    task.push(tarea);
-                    localStorage.setItem("datos", JSON.stringify(task));
-                    mostrarTarea();
+                    cont++; //SUMA CONTADOR
+                    localStorage.setItem("contador", cont); // GUARDA EL NUEVO VALOR DEL CONTADOR
+                    task.push(tarea); // GUARDA LA TAREA EN EL ARRAY
+                    localStorage.setItem("datos", JSON.stringify(task)); // GUARDA EN EL LOCAL STORAGE
+                    const li = document.createElement("li"); // CREO UN ELEMETO LI
+                    li.innerHTML = `
+                        <div class="tarea">
+                            <button>v</button>
+                            <p>${tareaInput.value.trim()}</p>
+                            <button>X</button>
+                        </div>
+                    `; // INSERTO EL CÓDIGO
+                    ul.append(li); // LO AÑADO
                 }
 
-            })
+            });
+
+            borrar.forEach(boton => {
+                boton.addEventListener("click", () => {
+                    boton.parentElement.parentElement.remove();
+                })
+            });
         
         })
         
