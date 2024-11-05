@@ -16,6 +16,7 @@
             margin: auto;
             border: solid rgb(93, 0, 255);
             gap: 50px;
+            flex-flow: wrap;
         }
 
         input{
@@ -32,18 +33,23 @@
             flex: 1;
             cursor: pointer;
         }
+
+        ul{
+            min-width: 100%;
+        }
     </style>
 </head>
 <body>
     <div class="tareas">
         <input type="text" placeholder="añadir tarea">
         <button>Agregar Tarea</button>
+        <ul>
+            <li>Tarea 1</li>
+            <li>Tarea 2</li>
+        </ul>
     </div>
 
-    <ul>
-        <li>Tarea 1</li>
-        <li>Tarea 2</li>
-    </ul>
+    
 
     <script>
         // CONSTANTES Y VARIABLES
