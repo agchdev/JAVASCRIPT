@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        const miArray = [
+            {id : 1, nombre : "Juan", edad : 25},
+            {id : 1, nombre : "Pedro", edad : 35},
+            {id : 1, nombre : "Ana", edad : 30}
+        ];
+
+        localStorage.setItem("dato", JSON.stringify(miArray));
+        let datosAlmacenados = JSON.parse(localStorage.getItem("dato"));
+
+        console.log(datosAlmacenados);
+
+        datosAlmacenados.forEach(dato => {
+            console.log(dato.nombre);
+        });
+
+        // 1. CONVERTIR EN STRING JSON.stringify
+        // 2. GUARDAR EN LOCALSTORAGE
+        // 3. RECUPERAR DE LOCALSTORAGE
+        // 4, CONVERTIR A OBJETO JSON.parse
+    </script>
+</body>
+</html> 
