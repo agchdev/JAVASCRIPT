@@ -102,7 +102,7 @@
         const tareaInput = document.querySelector('input');
         const boton = document.querySelector('button');
         let borrar = document.querySelectorAll('.x');
-        
+        let id = 0;
         
 
         const ul = document.createElement('ul');
@@ -115,8 +115,22 @@
             task = JSON.parse(localStorage.getItem("datos"));
         }
 
-        function almacenarTarea(tareas){
 
+        // ELIMINA LA TAREA 
+        function borrarTarea(boton, tareaNombre){
+            boton.parentElement.parentElement.remove();
+            let tareilla = JSON.parse(localStorage.getItem("datos"));
+            
+            tareilla.forEach(task => {
+                if(task.tarea == tareaNombre){
+                    id = task.id;
+                    console.log(id);
+                }
+            });
+
+            tareilla = tareilla.filter(tarea => tarea.id != id);
+            console.log(tareilla);
+            localStorage.setItem("datos", JSON.stringify(task));
         }
 
         // MUESTRA LA TAREA LA PRÓXIMA VEZ QUE ENTRA A LA WEB
@@ -154,19 +168,25 @@
                     const li = document.createElement("li"); // CREO UN ELEMETO LI
                     li.innerHTML = `
                         <div class="tarea">
-                            <button>v</button>
+                            <button class="v">v</button>
                             <p>${tareaInput.value.trim()}</p>
-                            <button>X</button>
+                            <button class="x">X</button>
                         </div>
                     `; // INSERTO EL CÓDIGO
                     ul.append(li); // LO AÑADO
+                    borrar = document.querySelectorAll('.x'); // SELECIONO LOS BOTONES DE BORRAR
                 }
 
             });
 
             borrar.forEach(boton => {
                 boton.addEventListener("click", () => {
-                    boton.parentElement.parentElement.remove();
+                    
+                    let divTareas = boton.parentElement;
+                    console.log(divTareas);
+                    let tarea = divTareas.querySelector('p');
+                    console.log(tarea.textContent);
+                    borrarTarea(boton, tarea.textContent);
                 })
             });
         
