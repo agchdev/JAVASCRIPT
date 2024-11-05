@@ -124,14 +124,15 @@
             tareilla.forEach(task => {
                 if(task.tarea == tareaNombre){
                     id = task.id;
-                    console.log(id);
+                    console.log(id+" == "+task.id);
+                    tareilla = tareilla.filter(tarea => tarea.id != id);
+                    console.log(tareilla);
                 }
             });
 
-            tareilla = tareilla.filter(tarea => tarea.id != id);
-            console.log(tareilla);
-            localStorage.setItem("datos", JSON.stringify(task));
+            localStorage.setItem("datos", JSON.stringify(tareilla));
         }
+
 
         // MUESTRA LA TAREA LA PRÓXIMA VEZ QUE ENTRA A LA WEB
         function mostrarTarea(){
@@ -153,11 +154,17 @@
             borrar = document.querySelectorAll('.x'); // SELECIONO LOS BOTONES DE BORRAR
         }
 
+        // SELECCIONAR BOTONES DE BORRAR
+        function seleccionarBorrar(){
+            borrar = document.querySelectorAll('.x'); // SELECIONO LOS BOTONES DE BORRAR
+            console.log(borrar);
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
             mostrarTarea();
         
             boton.addEventListener("click", () => {
-                
+                seleccionarBorrar();
                 if(tareaInput.value.trim() != ""){
                     let tarea = { id: cont, tarea: tareaInput.value.trim()}
                     // cont = localStorage.getItem("contador");
@@ -174,8 +181,8 @@
                         </div>
                     `; // INSERTO EL CÓDIGO
                     ul.append(li); // LO AÑADO
-                    borrar = document.querySelectorAll('.x'); // SELECIONO LOS BOTONES DE BORRAR
                 }
+                seleccionarBorrar();
 
             });
 
