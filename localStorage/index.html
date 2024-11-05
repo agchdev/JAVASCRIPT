@@ -8,10 +8,14 @@
         *{
             font-family: "system-ui";
             font-size: 1.2rem;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         :root{
             --morado: rgb(93, 0, 255);
+            --moradoClaro: rgb(188, 149, 255);
         } 
 
         div{
@@ -25,9 +29,13 @@
         }
 
         input{
-            border: solid 1px;
+            border: var(--morado) solid 1px;
             padding: 10px 20px;
             flex: 1;
+        }
+        input:focus {
+            border: var(--moradoClaro) solid 1px !important;
+            outline: none;
         }
 
         button{
@@ -46,6 +54,7 @@
 
         li{
             margin: 20px 0;
+            padding: 20px 0;
             border-bottom: solid 1px var(--morado);
         }
     </style>
@@ -54,10 +63,10 @@
     <div class="tareas">
         <input type="text" placeholder="añadir tarea">
         <button>Agregar Tarea</button>
-        <ul>
+        <!-- <ul>
             <li>Tarea 1</li>
             <li>Tarea 2</li>
-        </ul>
+        </ul> -->
     </div>
 
     
@@ -66,6 +75,22 @@
         // CONSTANTES Y VARIABLES
         const tareaInput = document.querySelector('input');
         const boton = document.querySelector('button');
+        const ul = document.createElement('ul');
+
+        document.addEventListener("DOMContentLoaded", () => {
+        
+            boton.addEventListener("click", () => {
+                let tarea = tareaInput.value != "" ? tareaInput.value : null ;
+
+                console.log(tarea);
+            })
+        
+        })
+        ul.innerHTML = `
+            <li>tarea 1</li>
+        `;
+
+        boton.parentElement.append(ul)
     </script>
 </body>
 </html>
