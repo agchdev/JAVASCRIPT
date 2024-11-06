@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://bootswatch.com/5/darkly/bootstrap.min.css">
+    
 </head>
 <body>
     <!--    EJERCICIO   
@@ -15,14 +15,73 @@
         - Que se borre todo
         - Animaciones
     -->
+    <div>
+
+        <input type="text" name="tarea">
+        <button>Enviar</button>
+        <button>Ocultar tareas</button>
+        <button>Limpiar Tareas</button>
         
-    <form action="">
-        
-    </form>
+    </div>
+
 
 
     <script>
 
+        // VARIABLES
+        let muestra = false;
+        const ul = document.createElement('ul');
+        const boton =  document.querySelectorAll('button');
+        const input = document.querySelector('input');
+        let tareas = JSON.parse(localStorage.getItem("tareas")) || []; //JSON.parse convierte la cadena de texto del local storage en Array
+        console.log(boton);
+        
+        function mostrarTareas(){
+            limpiar();
+            if (tareas.length > 0) {
+                tareas.forEach(task => {
+                    let li = document.createElement("li");
+                    li.textContent = task;
+                    ul.append(li);
+                    boton[0].parentElement.append(ul);
+                });
+            }
+        }
+
+        function limpiar(){
+            ul.innerHTML = "";
+            input.value = "";
+            input.focus();
+        }
+
+        document.addEventListener("DOMContentLoaded", () =>{
+            mostrarTareas();
+
+            boton[0].addEventListener("click", () => {
+                let tarea = input.value.trim();
+                console.log(tareas);
+                if (tarea != "") {
+                    tareas.push(tarea);
+                    localStorage.setItem("tareas", JSON.stringify(tareas));
+                }
+
+                mostrarTareas();
+            })
+
+            boton[1].addEventListener("click", () => {
+                if(!muestra){
+                    console.log("dentro");
+                    boton[1].textContent = "Ocultar Tareas";
+                    ul.style.display = "block";
+                    muestra = true;
+                }else{
+                    boton[1].textContent = "Mostrar Tareas";
+                    muestra = false;
+                    ul.style.display = "none";
+                }
+                
+            })
+        })
     </script>
 </body>
 </html>
