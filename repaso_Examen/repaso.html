@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
+    <style>
+
+    </style>
 </head>
 <body>
     <!--    EJERCICIO   
@@ -22,6 +24,12 @@
         <button>Ocultar tareas</button>
         <button>Limpiar Tareas</button>
         
+        <select name="pipiri">
+            <option value="red">Rojo</option>
+            <option value="green">Verde</option>
+            <option value="brown">Marrón</option>
+            <option value="blueviolet">Violeta</option>
+        </select>
     </div>
 
 
@@ -33,6 +41,7 @@
         const ul = document.createElement('ul');
         const boton =  document.querySelectorAll('button');
         const input = document.querySelector('input');
+        const select = document.querySelector('select');
         let tareas = JSON.parse(localStorage.getItem("tareas")) || []; //JSON.parse convierte la cadena de texto del local storage en Array
         console.log(boton);
         
@@ -80,7 +89,18 @@
                     ul.style.display = "none";
                 }
                 
+            });
+
+            boton[2].addEventListener("click", () => {
+                tareas = [];
+                localStorage.clear();
+                mostrarTareas();
+            });
+
+            select.addEventListener("change", () => {
+                document.body.style.backgroundColor = select.value;
             })
+
         })
     </script>
 </body>
