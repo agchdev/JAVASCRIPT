@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            font-family: "system-ui";
+            font-size: 1.2rem;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root{
+            --morado: rgb(93, 0, 255);
+            --moradoClaro: rgb(188, 149, 255);
+            --rosa: rgb(255, 0, 255);
+        } 
+
+        .tareas{
+            width: 60%;
+            display: flex;
+            padding: 50px;
+            margin: auto;
+            border: solid var(--morado);
+            gap: 50px;
+            flex-flow: wrap;
+        }
+
+        input{
+            border: var(--morado) solid 1px;
+            padding: 10px 20px;
+            flex: 1;
+        }
+        input:focus {
+            border: var(--moradoClaro) solid 1px !important;
+            outline: none;
+        }
+
+        .agregar{
+            border: none;
+            background-color: var(--morado);
+            padding: 20px 30px;
+            color: white;
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .borrar{
+            border: none;
+            background-color: var(--rosa);
+            padding: 20px 30px;
+            color: white;
+            flex: 1;
+            cursor: pointer;
+        }
+
+        ul{
+            list-style: none;
+            min-width: 100%;
+        }
+
+        li{
+            margin: 20px 0;
+            padding: 20px 0;
+            border-bottom: solid 1px var(--morado);
+        }
+        .tarea{
+            display: flex;
+            justify-content: space-between;
+        }
+        .x{
+            
+            background-color: red;
+            border: none;
+            padding: .5rem 1rem;
+            color: white;
+            cursor: pointer;
+        }
+        .v{
+            
+            background-color: green;
+            border: none;
+            padding: .5rem 1rem;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="tareas">
+        <input type="text" placeholder="añadir tarea">
+        <button class="agregar">Agregar Tareas</button>
+        <button class="borrar">Borrar Tareas</button>
+        <!-- <ul>
+            <li>
+                <div class="tarea">
+                    <button>v</button>
+                    <p>Tarea 1</p>
+                    <button>X</button>
+                </div>
+            </li>
+            <li>Tarea 2</li>
+        </ul> -->
+    </div>
+
+    
+
+    <script>
+        // CONSTANTES Y VARIABLES
+        const tareaInput = document.querySelector('input');
+        const boton = document.querySelectorAll('button');
+        const ul = document.createElement('ul');
+        let tasks = JSON.parse(localStorage.getItem("datos")) || [];
+
+
+        // MUESTRA LA TAREA LA PRÓXIMA VEZ QUE ENTRA A LA WEB
+        function mostrarTarea(){
+            limpiar();
+            seleccionarBorrar();
+            if(tasks != null){
+                tasks.forEach(task => {
+                    boton[0].parentElement.append(ul);
+                    const li = document.createElement("li"); 
+                    li.innerHTML = `
+                        <div class="tarea">
+                            <button class="v">v</button>
+                            <p>${task}</p>
+                            <button class="x">X</button>
+                        </div>
+                    `;
+
+                    ul.append(li);
+                });
+
+                // Selecciona los botones 'x' y agrega el eventListener
+                botonesBorrar = seleccionarBorrar();
+                botonesBorrar.forEach(botonBorrar => {
+                    botonBorrar.addEventListener("click", (event) => {
+                        let tarea = botonBorrar.parentElement;
+                        let textoTarea = tarea.querySelector("p");
+                        elimarTarea(textoTarea.textContent);
+                    });
+                });
+            }   
+        }
+
+        // FUNCION DE AGREGAR TAREA
+        function agregarTarea(){
+            let tarea = tareaInput.value.trim();
+            if(tareaInput.value.trim() != ""){
+                tasks.push(tarea);
+                almacenarLocal();
+                mostrarTarea();
+            }
+        }
+
+        // FUNCION DE ALMACENAR DATOS
+        function almacenarLocal(){
+            localStorage.setItem("datos", JSON.stringify(tasks));
+        }
+
+        // FUNCION DE LIMPIEZA
+        function limpiar(){
+            tareaInput.value = "";
+            ul.innerHTML = "";
+            tareaInput.focus();
+        }
+
+        // FUNCION DE LIMPIEZA TOTAL
+        function limpiarTareasAll(){
+            localStorage.clear();
+            tasks=[];
+            mostrarTarea();
+        }
+
+        // FUNCION SELECCIONAR BOTONES
+        function seleccionarBorrar(){
+            const botonBorrar = document.querySelectorAll('.x');
+            return botonBorrar;
+        }
+
+        // FUNCION ELIMINAR TAREA
+        function elimarTarea(textoTarea){
+            
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            mostrarTarea();
+
+            boton[0].addEventListener("click", () => {
+                agregarTarea();
+            });
+            boton[1].addEventListener("click", () => {
+                limpiarTareasAll();
+            });
+        
+        })
+
+        
+        
+        
+    </script>
+</body>
+</html>
