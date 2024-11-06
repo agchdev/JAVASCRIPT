@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-
+        li{
+            display: flex;
+            justify-self: start;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
@@ -50,17 +54,44 @@
             if (tareas.length > 0) {
                 tareas.forEach(task => {
                     let li = document.createElement("li");
-                    li.textContent = task;
+                    li.innerHTML = `
+                    <p>${task}</p>
+                    <button class="x">X</button>
+                    `;
                     ul.append(li);
                     boton[0].parentElement.append(ul);
                 });
             }
+
+            document.querySelectorAll('.x').forEach(x => {
+                x.addEventListener("click", () => {
+                    let liAux = x.parentElement;
+                    let texto = liAux.querySelector("p");
+                    texto = texto.textContent;
+                    console.log(texto);
+
+                    eliminarConcreto(texto);
+                })
+            });
         }
 
         function limpiar(){
             ul.innerHTML = "";
             input.value = "";
             input.focus();
+        }
+
+        function eliminarConcreto (tareaText){
+            let cont = 0;
+            tareas.forEach(task => {
+                if (task == tareaText) {
+                    tareas.splice(cont, 1);
+                    console.log(tareas);
+                }
+                cont++;
+            });
+            localStorage.setItem("tareas", JSON.stringify(tareas));
+            mostrarTareas();
         }
 
         document.addEventListener("DOMContentLoaded", () =>{
@@ -100,6 +131,7 @@
             select.addEventListener("change", () => {
                 document.body.style.backgroundColor = select.value;
             })
+            
 
         })
     </script>
