@@ -7,7 +7,7 @@
     <style>
         li{
             display: flex;
-            justify-self: start;
+
             align-items: center;
         }
     </style>
@@ -61,18 +61,18 @@
                     ul.append(li);
                     boton[0].parentElement.append(ul);
                 });
+
+                document.querySelectorAll('.x').forEach(x => {
+                    x.addEventListener("click", () => {
+                        let liAux = x.parentElement;
+                        let texto = liAux.querySelector("p");
+                        texto = texto.textContent;
+                        console.log(texto);
+
+                        eliminarConcreto(texto);
+                    })
+                });
             }
-
-            document.querySelectorAll('.x').forEach(x => {
-                x.addEventListener("click", () => {
-                    let liAux = x.parentElement;
-                    let texto = liAux.querySelector("p");
-                    texto = texto.textContent;
-                    console.log(texto);
-
-                    eliminarConcreto(texto);
-                })
-            });
         }
 
         function limpiar(){
