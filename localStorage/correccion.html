@@ -141,7 +141,7 @@
                     botonBorrar.addEventListener("click", (event) => {
                         let tarea = botonBorrar.parentElement;
                         let textoTarea = tarea.querySelector("p");
-                        elimarTarea(textoTarea.textContent);
+                        console.log(textoTarea.textContent);
                     });
                 });
             }   
@@ -184,7 +184,11 @@
 
         // FUNCION ELIMINAR TAREA
         function elimarTarea(textoTarea){
-            
+            tasks.forEach(tarea => {
+                if (tarea == textoTarea) {
+                    tasks.splice
+                }
+            });
         }
 
         document.addEventListener("DOMContentLoaded", () => {
