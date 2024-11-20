@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos Fetch</title>
+    <link rel="stylesheet" href="https://bootswatch.com/5/darkly/bootstrap.min.css">
+    <style>
+        .cargando{
+            width: 50px;
+            height: 50px;
+            border: solid 10px black;
+            border-radius: 50%;
+            border-top-color: crimson;
+
+            animation: rotar 1s ease-in-out infinite;
+        }
+
+        @keyframes rotar{
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="cargando">
+
+    </div>
+    <div class="container my-5">
+        <div class="row">
+            
+        </div>
+    </div>
+
+    <script>
+        const url = "https://www.rtve.es/api/noticias.json";
+        const row = document.querySelector('.row');
+        const cargando = document.querySelector('.cargando');
+        fetch(url)
+        .then(response => response.json())
+        .then(datos => {
+            cargando.style.display = "none";
+            datos.page.items.forEach(dato => {
+                row.innerHTML += `
+                    <div class="col-md-4">
+                        <div class="card text-white bg-primary mb-3">
+                            <div class="card-header">
+                                <img src="${dato.image}" class="img-fluid">
+                            </div>
+                                <div class="card-body">
+                                    <h4 class="card-title">${dato.title}</h4>
+                                    <a href="https://www.rtve.es/rtve/20240130/orquesta-sinfonica-rtve/15948224.shtml" class="btn btn-secondary my-4">más detalles</a>
+                                </div>
+                        </div>
+                    </div>
+                `;
+            });
+        })
+        
+    </script>
+</body>
+</html>
