@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles</title>
+    <link rel="stylesheet" href="https://bootswatch.com/5/darkly/bootstrap.min.css">
+</head>
+<body>
+    <div class="container my-5 border p-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+
+                    <!-- <div class="card border-secondary mb-3" style="max-width: 20rem;">
+                        <div class="card-header">
+                            <img src="https://img.rtve.es/imagenes/a9/1485450276539.jpg" alt="imagenes" class="img-fluid">
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Secondary card title</h4>
+                            <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Temporibus impedit ipsa facilis iure sint possimus? Tempora dolorem quisquam incidunt sit, quas nemo velit ipsum aperiam magni perferendis, perspiciatis at quis quasi temporibus facere ducimus quam unde accusamus ex molestiae nisi libero quibusdam? Eos dolore eum ipsa facilis omnis ab repellat.</p>
+                            <a href="ejercicio.html" class="btn btn-info">Volver</a>
+                        </div>
+                    </div> -->
+
+            </div>
+        </div>
+    </div>
+    <script>
+        const url = "https://www.rtve.es/api/noticias.json";
+        const colmd4 = document.querySelector(".row > div");
+        const host = window.location.href;
+        const id = host.split("?id=")[1];
+
+        fetch(url)
+        .then(resp => resp.json())
+        .then(datos => {
+
+            const noticia = datos.page.items;
+
+            colmd4.innerHTML = `
+                <div class="card border-secondary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">
+                        <img src="${noticia[id].image}" alt="imagenes" class="img-fluid">
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">${noticia[id].title}</h4>
+                        <p class="card-text">${noticia[id].summary}</p>
+                        <a href="ejercicio.html" class="btn btn-info">Volver</a>
+                    </div>
+                </div>
+            `;
+        })
+        console.log(host);
+    </script>
+</body>
+</html>

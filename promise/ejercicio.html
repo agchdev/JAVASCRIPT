@@ -27,15 +27,13 @@
 </head>
 <body>
     <div class="cargando">
-        <!-- hola -->
-         <!-- Aqui habia código -->
     </div>
     <div class="container my-5">
         <div class="row">
             
         </div>
     </div>
-
+    
     <script>
         const url = "https://www.rtve.es/api/noticias.json";
         const row = document.querySelector('.row');
@@ -44,7 +42,7 @@
         .then(response => response.json())
         .then(datos => {
             cargando.style.display = "none";
-            datos.page.items.forEach(dato => {
+            datos.page.items.forEach((dato, key) => {
                 row.innerHTML += `
                     <div class="col-md-4">
                         <div class="card text-white bg-primary mb-3">
@@ -53,14 +51,14 @@
                             </div>
                                 <div class="card-body">
                                     <h4 class="card-title">${dato.title}</h4>
-                                    <a href="https://www.rtve.es/rtve/20240130/orquesta-sinfonica-rtve/15948224.shtml" class="btn btn-secondary my-4">más detalles</a>
+                                    <a href="detalles.html?id=${key}" class="btn btn-secondary my-4">más detalles</a> 
                                 </div>
                         </div>
                     </div>
                 `;
             });
         })
-        
+        // https://www.rtve.es/rtve/20240130/orquesta-sinfonica-rtve/15948224.shtml
     </script>
 </body>
 </html>
