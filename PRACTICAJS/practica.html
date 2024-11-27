@@ -84,7 +84,7 @@
   
 
 
-  <!-- Modal -->
+  <!-- EMERGENTE -->
   <div class="modal fade" id="emergente" tabindex="-1" aria-labelledby="emergenteLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -99,8 +99,6 @@
          <p>texto</p>
          <h2>Ingredientes</h2>
          <ul>
-            <li>ingrediente1</li>
-            <li>ingrediente2</li>
          </ul>
 
 
@@ -168,9 +166,10 @@
                         </div>
                         <div class="card-body">
                         <h4 class="card-title">${dato.strMeal}</h4>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emergente">
+                        <button type="button" onclick="mostrarReceta(${dato.idMeal})" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#emergente">
                             Ver receta
                         </button>
+                        <button type="button" class="btn btn-success"><3</button>
                         </div>
                     </div>
                     
@@ -179,6 +178,29 @@
             })
         })
     }
+
+    // ABRIR EMERGENTE
+    function mostrarReceta(idReceta){
+        const url3 = "https://www.themealdb.com/api/json/v1/1/lookup.php?i="+idReceta;
+        let emergenteLabel = document.querySelector("#emergenteLabel");
+        let emergenteIMG = document.querySelector("#emergente img");
+        let emergenteUL = document.querySelector("#emergente ul");
+        emergenteUL.innerHTML = '';
+        console.log(url3)
+        obtenerDatos(url3)
+        .then(receta => {
+            console.log(receta.meals[0])
+            emergenteLabel.textContent = receta.meals[0].strMeal;
+            emergenteIMG.src = receta.meals[0].strMealThumb;
+            for (let i = 1; i <= 20; i++) {
+                if(receta.meals[0][`strIngredient${i}`] != ""){
+                    const li = document.createElement("li")
+                    li.textContent = receta.meals[0][`strIngredient${i}`];
+                    emergenteUL.append(li)
+                }
+            }
+        })
+    };
 
     cargarCategorias();
 
