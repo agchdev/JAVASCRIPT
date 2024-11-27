@@ -168,7 +168,6 @@
                             <button type="button" onclick="mostrarReceta(${dato.idMeal})" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#emergente">
                                 Ver receta
                             </button>
-                            <button onclick="añadirFavoritos(${dato.idMeal})" type="button" class="btn btn-success"><3</button>
                         </div>
                     </div>
                     
@@ -200,6 +199,8 @@
                     emergenteUL.append(li)
                 }
             }
+
+            //<button onclick="añadirFavoritos(${dato.idMeal})" type="button" class="btn btn-success"><3</button>
         })
     };
 
