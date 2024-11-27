@@ -54,7 +54,7 @@
 <div class="container my-5" id="recetas">
     <div class="row">
 
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
 
             <div class="card text-white bg-primary mb-3">
                 <div class="card-header">Header</div>
@@ -65,7 +65,7 @@
               </div>
 
 
-        </div>
+        </div> -->
 
 
     </div>
@@ -118,49 +118,70 @@
 
 
     
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js
-"></script>  
-
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>  
 <script>
+    // VARIABLES Y CONSTANTES
+    let selectorCategorias = document.querySelector('#categorias select');
+    let row = document.querySelector("#recetas .row");
 
-// VARIABLES Y CONSTANTES
-let selectorCategorias = document.querySelector('#categorias select');
-const url = "https://www.themealdb.com/api/json/v1/1/categories.php";
+    function obtenerDatos(url){
+        return fetch(url)
+        .then(respuesta => respuesta.json());
+    }
 
-function obtenerDatos(url){
-    return fetch(url)
-    .then(respuesta => respuesta.json());
-}
+    function cargarCategorias() {
+        const url1 = "https://www.themealdb.com/api/json/v1/1/categories.php";
+        obtenerDatos(url1)
+        .then(datos => {
+            datos.categories.forEach(dato => {
+                // console.log(dato.strCategory)   
+                selectorCategorias.innerHTML += `
+                <option value="${dato.strCategory}">${dato.strCategory}</option>
+                `;            
+            });
+        })
 
-function cargarCategorias() {
-    fetch(url)
-    .then(respuesta => respuesta.json())
-    .then(datos => {
-        datos.categories.forEach(dato => {
-            // console.log(dato.strCategory)   
-            selectorCategorias.innerHTML += `
-            <option value="${dato.strCategory}">${dato.strCategory}</option>
-            `;            
-        });
-    })
+    }
 
-}
+    // selectorCategorias.addEventListener('change', (e) => {
+    //     console.log(e.target.value)
+    //     let cat = e.target.value;
+    //     mostrarRecetasDeCateg(cat);
+    // })
 
-function mostrarRecetasDeLaCategoria(cat){
- const url ="https://www.themealdb.com/api/json/v1/1/filter.php?c="+cat;
-    console.log(url);
-}
+    // FUNCION PARA CARGAR CATEGORIAS - DATOS DEL SELECT
+    function mostrarRecetasDeLaCategoria(cat){
+        const url2 ="https://www.themealdb.com/api/json/v1/1/filter.php?c="+cat;
+        console.log(url2);
+        row.innerHTML = '';
 
+        obtenerDatos(url2)
+        .then( datos => {
+            console.log(datos)
+            datos.meals.forEach(dato => {
+                row.innerHTML += `
+                <div class="col-md-4">
 
+                    <div class="card text-white bg-primary mb-3">
+                        <div class="card-header">
+                            <img src="${dato.strMealThumb}" class="img-fluid"/>    
+                        </div>
+                        <div class="card-body">
+                        <h4 class="card-title">${dato.strMeal}</h4>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emergente">
+                            Ver receta
+                        </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                `;
+            })
+        })
+    }
 
-cargarCategorias();
+    cargarCategorias();
 
 </script>
-
-
-
-
-
 </body>
 </html>
