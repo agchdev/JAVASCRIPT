@@ -95,10 +95,26 @@ function textBtnFavs(idReceta){
     const btnFav = document.querySelector("#btnFav");
     if (!compuebaFavs(favs, idReceta)){ 
         btnFav.textContent = "Guardar Favoritos";
-
     }else{
         btnFav.textContent = "Eliminar Favoritos";
     };
+}
+
+function eliminarReceta(idReceta){
+    let cont = 0;
+    let elim = false;
+    for (const fav of favs) {
+        if (fav.idMeal == idReceta) {
+            console.log(fav.idMeal+" - "+idReceta)
+            elim = true;
+            break;
+        }
+        cont++;
+    }
+    console.log(cont);
+    if(elim) favs.splice(cont, 1);
+    console.log(favs);
+    localStorage.setItem("fav", JSON.stringify(favs));
 }
 
 // async function getDatos(url3){
@@ -119,7 +135,8 @@ function añadirFavoritos(idReceta){
         if (!compuebaFavs(favs, idReceta)){ 
             favs.push(datos.meals[0])
             almacenarLocal();
-        }else{
+        }else{ 
+            eliminarReceta(idReceta);
         };
     } )
 }
@@ -134,6 +151,9 @@ function compuebaFavs(favs, idReceta){
     // Si encuentra un favorito con el mismo id, retorna true (ya está en favoritos)
     return favs.some(fav => fav.idMeal == idReceta);
 }
-
-if(window.location.href == "practica.html") cargarCategorias();
+console.log(window.location.href);
+let locationPage = window.location.href.split("/");
+let cont = locationPage.length;
+console.log(locationPage[cont-1]);
+if(locationPage[cont-1] == "practica.html") cargarCategorias();
 
