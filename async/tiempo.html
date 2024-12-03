@@ -16,7 +16,7 @@
     </style>
 </head>
 <body>
-    <div class="container text-center">
+    <!-- <div class="container text-center">
         <div class="row">
             <div class="col-md-4 offset-md-4 border p-4">
                 <img src="" alt="">
@@ -25,7 +25,7 @@
                 <h4 >Max: 25 ºC</h4>
             </div>
         </div>
-    </div>
+    </div> -->
     <script>
         
         
@@ -37,6 +37,7 @@
                 const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=es&appid=${apiKey}`;
                 
                 mostrarDatos(url);
+                console.log(url)
             })
         }
 
@@ -44,7 +45,18 @@
             const respuesta = await fetch(url);
             const datos = await respuesta.json();
             console.log(datos.name);
-            
+            document.body.innerHTML = `
+                <div class="container text-center">
+                    <div class="row">
+                        <div class="col-md-4 offset-md-4 border p-4">
+                            <img src="http://openweathermap.org/img/wn/${datos.weather[0].icon}@2x.png" alt="">
+                            <h1 class="text-info">22 ºC</h1>
+                            <h4 >Min: 10 ºC</h4>
+                            <h4 >Max: 25 ºC</h4>
+                        </div>
+                    </div>
+                </div>
+            `;
         }
     </script>
 </body>
