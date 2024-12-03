@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElTiempo</title>
+    <link rel="stylesheet" href="https://bootswatch.com/5/pulse/bootstrap.min.css">
+    <style>
+        body{
+            min-height: 100dvh;
+            display: flex;
+            .container{
+                margin: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-md-4 offset-md-4 border p-4">
+                <img src="" alt="">
+                <h1 class="text-info">22 ºC</h1>
+                <h4 >Min: 10 ºC</h4>
+                <h4 >Max: 25 ºC</h4>
+            </div>
+        </div>
+    </div>
+    <script>
+        
+        
+        if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(pos => {
+                const apiKey = "1d56ac634360781b0c3ac43b27c26650";
+                const lat = pos.coords.latitude;
+                const lon = pos.coords.longitude;
+                const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=es&appid=${apiKey}`;
+                
+                mostrarDatos(url);
+            })
+        }
+
+        async function mostrarDatos(url){
+            const respuesta = await fetch(url);
+            const datos = await respuesta.json();
+            console.log(datos.name);
+            
+        }
+    </script>
+</body>
+</html>
