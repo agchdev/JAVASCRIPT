@@ -115,6 +115,7 @@ function eliminarReceta(idReceta){
     if(elim) favs.splice(cont, 1);
     console.log(favs);
     localStorage.setItem("fav", JSON.stringify(favs));
+    textBtnFavs(idReceta);
 }
 
 // async function getDatos(url3){
@@ -126,7 +127,6 @@ function eliminarReceta(idReceta){
 
 function añadirFavoritos(idReceta){
     console.log(idReceta)
-    textBtnFavs(idReceta);
     const url3 = "https://www.themealdb.com/api/json/v1/1/lookup.php?i="+idReceta;
     fetch(url3)
     .then( respuesta => respuesta.json())
@@ -135,6 +135,7 @@ function añadirFavoritos(idReceta){
         if (!compuebaFavs(favs, idReceta)){ 
             favs.push(datos.meals[0])
             almacenarLocal();
+            textBtnFavs(idReceta);
         }else{ 
             eliminarReceta(idReceta);
         };
