@@ -9,18 +9,21 @@
     
     <script>
         const url="https://jsonplaceholder.typicode.com/posts";
-        fetch(url)
-        .then( respuesta => respuesta.json)
-        .then( datos => console.log(datos) )
+        // fetch(url)
+        // .then( respuesta => respuesta.json)
+        // .then( datos => console.log(datos) )
 
         async function obtenerDatos(){
             const urlFetch = await fetch(url);
-            const respuesta = await urlFetch.json();
-            console.log(respuesta);
+            const datos = await urlFetch.json();
+            datos.forEach(dato => {
+                console.log(dato);
+            });
         }
 
         obtenerDatos();
         // código tipico de javascript
+
     </script>
 </body>
 </html>
