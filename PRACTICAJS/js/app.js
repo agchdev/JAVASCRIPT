@@ -135,4 +135,5 @@ function compuebaFavs(favs, idReceta){
     return favs.some(fav => fav.idMeal == idReceta);
 }
 
-cargarCategorias();
+if(window.location.href == "practica.html") cargarCategorias();
+
