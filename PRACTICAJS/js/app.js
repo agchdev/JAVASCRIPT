@@ -137,12 +137,12 @@ function añadirFavoritos(idReceta){
             almacenarLocal();
             const divSucces = document.createElement("div");
             divSucces.innerHTML = `
-                <div class="alert alert-dismissible alert-success">
+                <div class="alert alert-dismissible position-fixed alert-success top-5 m-auto z-3">
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     <strong>Añadido a Favoritos</strong> You successfully read <a href="favoritos.html" class="alert-link">Ve a ver tus favoritos</a>.
                 </div>
             `;
-            
+            document.querySelector("#emergente").prepend(divSucces);
             textBtnFavs(idReceta);
         }else{ 
             eliminarReceta(idReceta);

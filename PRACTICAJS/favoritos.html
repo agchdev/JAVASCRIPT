@@ -78,6 +78,12 @@
         let favs = JSON.parse(localStorage.getItem("fav")) || [];
         console.log(favs);
 
+        if(favs.length == 0){
+            const vacio = document.createElement("h2");
+            vacio.setAttribute("class", "text-center fs-1");
+            vacio.textContent = "NO HAY FAVORITOS";
+            divRow.append(vacio);
+        }
         favs.forEach(dato => {
             console.log(dato.idMeal);
             divRow.innerHTML += `
