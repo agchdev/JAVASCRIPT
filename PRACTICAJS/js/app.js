@@ -135,6 +135,14 @@ function añadirFavoritos(idReceta){
         if (!compuebaFavs(favs, idReceta)){ 
             favs.push(datos.meals[0])
             almacenarLocal();
+            const divSucces = document.createElement("div");
+            divSucces.innerHTML = `
+                <div class="alert alert-dismissible alert-success">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <strong>Añadido a Favoritos</strong> You successfully read <a href="favoritos.html" class="alert-link">Ve a ver tus favoritos</a>.
+                </div>
+            `;
+            
             textBtnFavs(idReceta);
         }else{ 
             eliminarReceta(idReceta);
