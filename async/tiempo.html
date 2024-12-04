@@ -9,55 +9,103 @@
         body{
             min-height: 100dvh;
             display: flex;
-            .container{
-                margin: auto;
-            }
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
     </style>
 </head>
 <body>
-    <!-- <div class="container text-center">
+
+    <div class="container my-4">
         <div class="row">
-            <div class="col-md-4 offset-md-4 border p-4">
-                <img src="" alt="">
-                <h1 class="text-info">22 ºC</h1>
-                <h4 >Min: 10 ºC</h4>
-                <h4 >Max: 25 ºC</h4>
+            <div class="col-md-4 offset-md-4 text-center">
+                <div>
+                    <label for="exampleSelect1" class="form-label mt-4">Pais</label>
+                    <select class="form-select" id="exampleSelect1">
+                        <option value="" disabled selected>Seleccionar ciudad</option>
+                        <option value="Granada">Granada</option>
+                        <option value="Almería">Almería</option>
+                        <option value="Málaga">Málaga</option>
+                        <option value="Jaen">Jaen</option>
+                    </select>
+                    <label for="exampleSelect1" class="form-label mt-4">Ciudad</label>
+                    <select class="form-select" id="exampleSelect2">
+                        <option value="" disabled selected>Seleccionar ciudad</option>
+                        <option value="es">España</option>
+                    </select>
+                    <button type="button" id="enviar" class="btn btn-primary my-4">enviar</button>
+                  </div>
             </div>
         </div>
-    </div> -->
+    </div>
+    <div class="container text-center">
+        <div class="row" id="datos">
+
+        </div>
+    </div>
     <script>
-        
-        
-        if(navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(pos => {
-                const apiKey = "1d56ac634360781b0c3ac43b27c26650";
-                const lat = pos.coords.latitude;
-                const lon = pos.coords.longitude;
-                const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=es&appid=${apiKey}`;
-                
-                mostrarDatos(url);
-                console.log(url)
+
+        function geolocalizar(ciudad, pais){
+            const apiKey = "1d56ac634360781b0c3ac43b27c26650";
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${apiKey}&units=metric`;
+            
+            mostrarDatos(url);
+            console.log(url);
+        }
+
+
+        // async function mostrarDatos(url){
+        //     const respuesta = await fetch(url);
+        //     const datos = await respuesta.json();
+        //     console.log(datos.name);
+        //     document.body.innerHTML += `
+        //         <div class="container text-center">
+        //             <div class="row">
+        //                 <div class="col-md-4 offset-md-4 border p-4">
+        //                     <img src="http://openweathermap.org/img/wn/${datos.weather[0].icon}@2x.png" alt="">
+        //                     <h1 class="text-info">${datos.name}</h1>
+        //                     <h1 class="text-info">${Math.floor(datos.main.temp)} ºC</h1>
+        //                     <h4 >Min: ${Math.floor(datos.main.temp_min)} ºC</h4>
+        //                     <h4 >Max: ${Math.floor(datos.main.temp_max)} ºC</h4>
+        //                 </div>
+        //             </div>
+        //         </div>
+        //     `;
+        // }
+
+        function obtenerDatos(url){
+            return fetch(url)
+            .then(respuesta => respuesta.json());
+        }
+
+        function mostrarDatos(url){
+            const divDatos = document.querySelector("#datos");
+            obtenerDatos(url)
+            .then(datos => {
+                divDatos.innerHTML = `
+                    <div class="col-md-4 offset-md-4 border p-4">
+                        <img src="http:openweathermap.org/img/wn/${datos.weather[0].icon}@2x.png" alt="">
+                        <h1 class="text-info">${datos.name}</h1>
+                        <h1 class="text-info">${Math.floor(datos.main.temp)} ºC</h1>
+                        <h4 >Min: ${Math.floor(datos.main.temp_min)} ºC</h4>
+                        <h4 >Max: ${Math.floor(datos.main.temp_max)} ºC</h4>
+                    </div>
+                `;
             })
         }
 
-        async function mostrarDatos(url){
-            const respuesta = await fetch(url);
-            const datos = await respuesta.json();
-            console.log(datos.name);
-            document.body.innerHTML = `
-                <div class="container text-center">
-                    <div class="row">
-                        <div class="col-md-4 offset-md-4 border p-4">
-                            <img src="http://openweathermap.org/img/wn/${datos.weather[0].icon}@2x.png" alt="">
-                            <h1 class="text-info">22 ºC</h1>
-                            <h4 >Min: 10 ºC</h4>
-                            <h4 >Max: 25 ºC</h4>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
+        document.addEventListener("DOMContentLoaded", () => {
+            const btn = document.querySelector("#enviar");
+            const select1 = document.querySelector("#exampleSelect1");
+            const select2 = document.querySelector("#exampleSelect2");
+
+            btn.addEventListener("click", (e) => {
+                if(select1.value != null || select1.value != "" && select2.value != null || select2.value != ""){
+                    geolocalizar(select1.value, select2.value);
+                }
+            })
+        })
     </script>
 </body>
 </html>
